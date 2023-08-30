@@ -1,6 +1,9 @@
 package base
 
-import "strings"
+import (
+	"sort"
+	"strings"
+)
 
 type Base struct {
 	baseMap map[string]int
@@ -19,5 +22,7 @@ func (b Base) Complete(base string) []string {
 			ret = append(ret, word)
 		}
 	}
+	// now sort alphabetically
+	sort.Strings(ret)
 	return ret
 }
