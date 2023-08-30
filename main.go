@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/anyaguuu/methods_and_interfaces/base"     // fix to properly reference your package
-	"github.com/comp318/methods_and_interfaces/frequency" // fix to properly reference your package
+	"github.com/anyaguuu/methods_and_interfaces/base"
+	"github.com/anyaguuu/methods_and_interfaces/frequency"
 )
 
 type Completer interface {
