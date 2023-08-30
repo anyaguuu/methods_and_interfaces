@@ -21,6 +21,10 @@ func (b Base) Complete(base string) []string {
 		if strings.Index(word, base) == 0 {
 			ret = append(ret, word)
 		}
+		if len(ret) == 10 {
+			sort.Strings(ret)
+			return ret
+		}
 	}
 	// now sort alphabetically
 	sort.Strings(ret)
