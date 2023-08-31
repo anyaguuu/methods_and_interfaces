@@ -5,6 +5,8 @@ package base
 import (
 	"sort"
 	"strings"
+
+	"github.com/anyaguuu/methods_and_interfaces/search"
 )
 
 type base struct {
@@ -26,18 +28,22 @@ func New(input map[string]int) base { // returns pointer to base
 
 // implements the interface!
 // return up to the first 10 words alphabetically that have the given base
-func (b base) Complete(base string) []string {
-	ret := make([]string, 0, 10) // so empty slice of strings, cap = 10
-	for word := range b.baseMap {
-		if strings.Index(word, base) == 0 {
-			ret = append(ret, word)
-		}
-		if len(ret) == 10 { // return when reached 10
-			sort.Strings(ret)
-			return ret
+func (b base) Complete(prefix string) []string {
+	var words []string
+	index, ok := search.BinarySearch(prefix, b.words) // finds the first word in words that starts with prefix
+	if !ok {
+		return words
+	}
+
+	// return up to 10 words w input prefix
+	last := min(index+10, len(b.words)) //last index we want to go til
+	for i := index; i < last; i++ {
+		word := b.words[i]
+		if strings.HasPrefix(word, prefix) {
+			words = append(words, word)
+		} else {
+			break
 		}
 	}
-	// now sort alphabetically
-	sort.Strings(ret)
-	return ret
+	return words
 }
