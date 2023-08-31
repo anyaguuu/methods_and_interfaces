@@ -1,21 +1,32 @@
 package base
 
+// provides completion based on search order
+
 import (
 	"sort"
 	"strings"
 )
 
-type Base struct {
-	baseMap map[string]int
+type base struct {
+	words []string
 }
 
-func New(inputMap map[string]int) Base { // returns pointer to base
-	return Base{baseMap: inputMap} // maps words to frequencies
+func New(input map[string]int) base { // returns pointer to base
+	// we want to get the words and sort them
+	keys := make([]string, 0, len(input))
+
+	for word := range input {
+		keys = append(keys, word)
+	}
+
+	sort.Strings(keys)
+
+	return base{words: keys}
 }
 
 // implements the interface!
 // return up to the first 10 words alphabetically that have the given base
-func (b Base) Complete(base string) []string {
+func (b base) Complete(base string) []string {
 	ret := make([]string, 0, 10) // so empty slice of strings, cap = 10
 	for word := range b.baseMap {
 		if strings.Index(word, base) == 0 {
